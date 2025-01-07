@@ -78,7 +78,7 @@ public class Owner {
         this.age = age;
     }
 
-    public void setAnimals(List<Animal> animals) {
-        this.animals = animals;
+    public void setAnimals(Animal animals) {
+        this.animals.add(animals);
     }
 }

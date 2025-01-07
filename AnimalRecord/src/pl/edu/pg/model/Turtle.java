@@ -12,7 +12,7 @@ public class Turtle extends Animal{
         this.type = type;
     }
     public void info() {
-        System.out.println("Turtle name: " + name + ", age: " + age + ", gender: " + gender + ", type: " + TurtleType.BLOTNY);
+        System.out.println("Turtle name: " + name + ", age: " + age + ", gender: " + gender + ", type: " + type);
     }
 
     //////////////////////// getters and setters //////////////////////////
