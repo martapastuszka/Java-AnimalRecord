@@ -16,7 +16,6 @@ public abstract  class Animal {
     //Printowanie info - politmo
     public abstract void info();
 
-
     ////////////////////// Getters and Setters  //////////////////////
 
     public String getName() {

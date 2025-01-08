@@ -25,11 +25,14 @@ public class Owner {
 
     //Polimorfizm - implementacja info();
     public void info(){
-        System.out.println("Owner id: " + id);
-        System.out.println("name: "     + firstName + " " + lastName);
-        System.out.println("gender: "   + gender);
-        System.out.println("age: "      + age);
-        System.out.println("---------------------------------------------------");
+        System.out.print("ID: " + id);
+        System.out.print(", " + firstName + " " + lastName);
+        System.out.print(", gender: " + gender);
+        System.out.println(", age: " + age);
+    }
+
+    public void listAnimals(){
+
     }
 
     ////////////////////// Getters and Setters  //////////////////////
