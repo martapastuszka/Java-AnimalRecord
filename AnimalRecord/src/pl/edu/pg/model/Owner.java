@@ -1,7 +1,6 @@
 package pl.edu.pg.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //cechy wlasciciela
 // imie, nazwisko, plec, wiek,
@@ -28,7 +27,8 @@ public class Owner {
         System.out.print("ID: " + id);
         System.out.print(", " + firstName + " " + lastName);
         System.out.print(", gender: " + gender);
-        System.out.println(", age: " + age);
+        System.out.print(", age: " + age);
+        System.out.println(", pets: " + getAnimalsCount());
     }
 
     public void listAnimals(){
@@ -84,4 +84,6 @@ public class Owner {
     public void setAnimals(Animal animals) {
         this.animals.add(animals);
     }
+
+    public int getAnimalsCount() { return animals.size(); }
 }

@@ -9,7 +9,7 @@ public class Cat extends Animal {
     //Konstruktor
 
     public Cat(String name, String gender, int age, int ownerId, String breed){
-        super(name, gender, ownerId, age);
+        super(name, gender, age, ownerId);
         this.breed = breed;
     }
     //implementacja info() z klasy Animal
