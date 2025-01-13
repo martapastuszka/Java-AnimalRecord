@@ -1,5 +1,10 @@
 package pl.edu.pg;
 
+//do menu dopisujemy opcję tryb wielkiej litery
+// touppercase (string.touppercase) -> to musi być uwzględnione na wyświetlaniu
+// gdy jeszcze raz wcisnę ten przycisk to mają wrócić do poprzedniego widoku
+// ten tryb musi być obecny w menu
+
 import pl.edu.pg.model.*;
 
 import java.util.*;
@@ -7,6 +12,8 @@ import java.util.*;
 public class AnimalRecord {
     private int ownersCount;
     private List<Owner> owners = new ArrayList<>();
+    public static boolean printUpperCase = false;
+
 
     public void start() {
         System.out.println("Welcome in the record of animals and their owners");
@@ -25,9 +32,14 @@ public class AnimalRecord {
                         System.out.println("Max number of owners (5) reached. You cannot add more");
                     }
                     break;
-
                 case 2: // list owners
+                    printUpperCase = true;
                     listOwners();
+                    break;
+                case 22: // list owners - upper case mode
+                    printUpperCase = false;
+                    listOwners();
+
                     break;
                 case 3:
                     owners.sort((p1,p2) -> { return p1.getLastName().compareTo(p2.getLastName()); }); // p1 < p2 = -1
@@ -38,14 +50,14 @@ public class AnimalRecord {
                     listOwners();
                     break;
                 case 5:
-                    owners.sort((p1,p2) -> { return p1.getAnimalsCount() - p2.getAnimalsCount(); });
+                    owners.sort(Comparator.comparingInt(Owner::getAnimalsCount));
                     listOwners();
                     break;
                 case 6:
                     owners.sort((p1,p2) -> { return p2.getAnimalsCount() - p1.getAnimalsCount(); });
                     listOwners();
                     break;
-                case 7: //add animal
+                case 7: // add animal
                     createAnimal();
                     break;
                 case 8: // list animals
@@ -72,7 +84,6 @@ public class AnimalRecord {
             }
         }
     }
-
     //możliwość wyświetlenia listy wszystkich zwierząt (wszystkie dane) wraz z informacją kto jest właścicielem (imię i nazwisko)
     private void listAnimals() {
         for (Owner owner : owners) {
@@ -83,12 +94,11 @@ public class AnimalRecord {
             }
         }
     }
-
     private void createAnimal() {
         Scanner scanner = new Scanner(System.in);
         // w ramach tej operacji konieczne będzie wybranie właściciela, do którego należy dane zwierze
         for (Owner owner : owners) {
-            owner.info();
+            owner.info(printUpperCase);
         }
         System.out.println("To add animal choose owner id first: ");
         int ownerId = scanner.nextInt();
@@ -158,7 +168,6 @@ public class AnimalRecord {
                 }
                 break;
         }
-
 }
 
     private void listOwners() {
@@ -167,7 +176,7 @@ public class AnimalRecord {
             System.out.println("No owners added.");
         }
         for (Owner owner : owners) {
-            owner.info();
+            owner.info(printUpperCase);
             if(! owner.getAnimals().isEmpty()) {
                 System.out.print("   Animals owned: ");
                 for (Animal animal : owner.getAnimals()){
@@ -179,8 +188,7 @@ public class AnimalRecord {
     }
 
     //- możliwość dodania nowego właściciela
-    // ZMIENIĆ WSZYSTKIE NA PRIVATE (OPRÓCZ START)
-    public Owner createOwner() {
+    private Owner createOwner() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("First name: ");
         String firstName = scanner.next();
@@ -233,20 +241,18 @@ public class AnimalRecord {
             }
         }
     }
-
-    public int pickOption() {
+    private int pickOption() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
-
-    // pozniej przeniesc menu jako osobna klase - zarzadzenie menu
-    public void showMenu() {
+    private void showMenu() {
         System.out.println("------------------- Menu --------------------------");
         System.out.println("What do you want to do? Pick a number:");
         System.out.println("1. Add animal owner");
 
         if (ownersCount > 0) {
             System.out.println("2. List owners");
+            System.out.println("22. List owners to upper case mode");
             System.out.println("3. Sort owners by last name ascending");
             System.out.println("4. Sort owners by last name descending");
             System.out.println("5. Sort owners by numbers of animals they have ascending");

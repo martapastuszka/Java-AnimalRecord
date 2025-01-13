@@ -1,5 +1,7 @@
 package pl.edu.pg.model;
 
+import pl.edu.pg.AnimalRecord;
+
 import java.util.*;
 
 //cechy wlasciciela
@@ -13,6 +15,9 @@ public class Owner {
     protected int age;
     protected List<Animal> animals = new ArrayList<>();
 
+
+
+
     //Konstruktor
     public Owner(int id, String firstName, String lastName, String gender, int age){
         this.id = id;
@@ -23,9 +28,13 @@ public class Owner {
     }
 
     //Polimorfizm - implementacja info();
-    public void info(){
+    public void info(boolean printUpperCase){
         System.out.print("ID: " + id);
-        System.out.print(", " + firstName + " " + lastName);
+        if(printUpperCase){
+            System.out.print(", " + firstName + " " + lastName);
+        }else {
+            System.out.print(", " + firstName.toUpperCase() + " " + lastName.toUpperCase());
+        }
         System.out.print(", gender: " + gender);
         System.out.print(", age: " + age);
         System.out.println(", pets: " + getAnimalsCount());
