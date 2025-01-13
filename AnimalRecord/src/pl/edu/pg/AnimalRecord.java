@@ -33,14 +33,14 @@ public class AnimalRecord {
                     }
                     break;
                 case 2: // list owners
-                    printUpperCase = true;
                     listOwners();
                     break;
                 case 22: // list owners - upper case mode
-                    printUpperCase = false;
-                    listOwners();
-
-                    break;
+                    if(printUpperCase == false){
+                        printUpperCase = true;
+                    }else{
+                        printUpperCase = false;
+                    }
                 case 3:
                     owners.sort((p1,p2) -> { return p1.getLastName().compareTo(p2.getLastName()); }); // p1 < p2 = -1
                     listOwners();
@@ -89,7 +89,11 @@ public class AnimalRecord {
         for (Owner owner : owners) {
             for (Animal animal : owner.getAnimals()) {
                 animal.info();
-                System.out.println("Owner: " + owner.getFirstName() + " " + owner.getLastName());
+                if(printUpperCase == true){
+                    System.out.println("Owner: " + owner.getFirstName() + " " + owner.getLastName());
+                }else{
+                    System.out.print(owner.getFirstName().toUpperCase() + " " + owner.getLastName().toUpperCase());
+                }
                 System.out.println("---------------------------------------------------");
             }
         }
@@ -164,7 +168,7 @@ public class AnimalRecord {
                 } else if (turtleType == TurtleType.MORSKI && ownersAge >= 35 && ownersLastNameFirstLetter == 'M') {
                     owners.get(ownerId).setAnimals(new Turtle(name, gender, age, ownerId, turtleType));
                 } else {
-                    System.out.println("Error: owner too young!");
+                    System.out.println("Error: owner too young!"); //to be fixed
                 }
                 break;
         }
@@ -252,7 +256,7 @@ public class AnimalRecord {
 
         if (ownersCount > 0) {
             System.out.println("2. List owners");
-            System.out.println("22. List owners to upper case mode");
+            System.out.println("22. Upper case mode on/off");
             System.out.println("3. Sort owners by last name ascending");
             System.out.println("4. Sort owners by last name descending");
             System.out.println("5. Sort owners by numbers of animals they have ascending");

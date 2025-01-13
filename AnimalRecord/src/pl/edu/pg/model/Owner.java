@@ -16,8 +16,6 @@ public class Owner {
     protected List<Animal> animals = new ArrayList<>();
 
 
-
-
     //Konstruktor
     public Owner(int id, String firstName, String lastName, String gender, int age){
         this.id = id;
