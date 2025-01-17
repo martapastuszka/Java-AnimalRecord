@@ -33,7 +33,7 @@ public class AnimalRecord {
                     System.out.println("Thanks, bye bye!");
                     // instead of System.exit(0)
                     return;
-                case 1: // add new animal
+                case 1: // add new owner
                     // dodać stałe
                     if (ownersCount >= 0 && ownersCount < 5) {
                         owners.add(manageOwners.createOwner());
@@ -45,7 +45,7 @@ public class AnimalRecord {
                     manageOwners.listOwners();
                     break;
                 case 22: // list owners - upper case mode
-                    if(!printUpperCase){
+                    if(printUpperCase == false){
                         printUpperCase = true;
                     }else{
                         printUpperCase = false;
@@ -95,6 +95,10 @@ public class AnimalRecord {
         }
     }
 
+//    private int pickOption() {
+//        Scanner scanner = new Scanner(System.in);
+//        return scanner.nextInt();
+//    }
 
     private void test_insertOwners() {
         owners.add(new Owner(ownersCount++, "Jan", "Olbracht", "male", 53));

@@ -9,6 +9,7 @@ import java.util.*;
  * manipulate with menu options
  */
 public class MenuManager extends AnimalRecord {
+    protected static int ownersCount;
     public int showMenu() {
         System.out.println("------------------- Menu --------------------------");
         System.out.println("What do you want to do? Pick a number:");
