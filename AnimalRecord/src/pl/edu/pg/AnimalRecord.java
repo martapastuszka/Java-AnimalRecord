@@ -3,23 +3,9 @@ import pl.edu.pg.model.MenuManager;
 import pl.edu.pg.model.ManageAnimals;
 import pl.edu.pg.model.ManageOwners;
 
-//do menu dopisujemy opcję tryb wielkiej litery
-// touppercase (string.touppercase) -> to musi być uwzględnione na wyświetlaniu
-// gdy jeszcze raz wcisnę ten przycisk to mają wrócić do poprzedniego widoku
-// ten tryb musi być obecny w menu
-
-import pl.edu.pg.model.*;
-import java.util.*;
-import java.util.List;
-
 public class AnimalRecord {
-    protected int ownersCount;
-    protected List<Owner> owners = new ArrayList<>();
-    public boolean printUpperCase = false;
 
-//    public AnimalRecord(int ownersCount) {
-//        this.ownersCount = ownersCount;
-//    }
+    private boolean printUpperCase = false;
     public void start() {
         MenuManager menu = new MenuManager();
         ManageAnimals manageAnimals = new ManageAnimals();
@@ -27,7 +13,7 @@ public class AnimalRecord {
 
         System.out.println("Welcome in the record of animals and their owners");
         for (; ;) {
-            int o = menu.showMenu();
+            int o = menu.showMenu(manageOwners.getOwnersCount());
             switch (o) {
                 case 0: //exit the program
                     System.out.println("Thanks, bye bye!");
@@ -35,55 +21,58 @@ public class AnimalRecord {
                     return;
                 case 1: // add new owner
                     // dodać stałe
+                    int ownersCount = manageOwners.getOwnersCount();
                     if (ownersCount >= 0 && ownersCount < 5) {
-                        owners.add(manageOwners.createOwner());
+                        manageOwners.createOwner();
                     } else {
                         System.out.println("Max number of owners (5) reached. You cannot add more");
                     }
                     break;
                 case 2: // list owners
-                    manageOwners.listOwners();
+                    manageOwners.listOwners(printUpperCase);
                     break;
                 case 22: // list owners - upper case mode
-                    if(printUpperCase == false){
+                    if(!printUpperCase){
                         printUpperCase = true;
-                    }else{
+                    }
+                    else{
                         printUpperCase = false;
                     }
+                    break;
                 case 3:
-                    owners.sort((p1,p2) -> { return p1.getLastName().compareTo(p2.getLastName()); }); // p1 < p2 = -1
-                    manageOwners.listOwners();
+                    manageOwners.sortOwnersByLastNameAsc();
+                    manageOwners.listOwners(printUpperCase);
                     break;
                 case 4:
-                    owners.sort((p1,p2) -> { return p2.getLastName().compareTo(p1.getLastName()); });
-                    manageOwners.listOwners();
+                    manageOwners.sortOwnersByLastNameDesc();
+                    manageOwners.listOwners(printUpperCase);
                     break;
                 case 5:
-                    owners.sort(Comparator.comparingInt(Owner::getAnimalsCount));
-                    manageOwners.listOwners();
+                    manageOwners.sortOwnersByNumAnimalsAsc();
+                    manageOwners.listOwners(printUpperCase);
                     break;
                 case 6:
-                    owners.sort((p1,p2) -> { return p2.getAnimalsCount() - p1.getAnimalsCount(); });
-                    manageOwners.listOwners();
+                    manageOwners.sortOwnersByNumAnimalsDesc();
+                    manageOwners.listOwners(printUpperCase);
                     break;
                 case 7: // add animal
-                    manageAnimals.createAnimal();
+                    manageAnimals.createAnimal(manageOwners.getOwnerList(), printUpperCase);
                     break;
                 case 8: // list animals
-                    manageAnimals.listAnimals();
+                    manageAnimals.listAnimals(manageOwners.getOwnerList(), printUpperCase);
                     break;
                 case 9:
-                    manageAnimals.findAnimalByName();
+                    manageAnimals.findAnimalByName(manageOwners.getOwnerList());
                     break;
                 case 99:
-                    manageAnimals.findAnimalByAge();
+                    manageAnimals.findAnimalByAge(manageOwners.getOwnerList());
 
                     break;
                 case 999:
-                    manageAnimals.findAnimalByLastName();
+                    manageAnimals.findAnimalByLastName(manageOwners.getOwnerList());
                     break;
                 case 11: // test_insertOwners
-                    test_insertOwners();
+                    manageOwners.test_insertOwners();
                     break;
                 case 12: // test_insertAnimals
                     test_insertAnimals();
@@ -95,24 +84,10 @@ public class AnimalRecord {
         }
     }
 
-//    private int pickOption() {
-//        Scanner scanner = new Scanner(System.in);
-//        return scanner.nextInt();
-//    }
+    ////// Getters and Setters //////
 
-    private void test_insertOwners() {
-        owners.add(new Owner(ownersCount++, "Jan", "Olbracht", "male", 53));
-        owners.add(new Owner(ownersCount++, "Anna", "Jagiellonka", "male", 43));
-        owners.add(new Owner(ownersCount++, "Bona", "Sforza", "male", 25));
-        owners.add(new Owner(ownersCount++, "Henryk", "Pobożny", "male", 60));
-        owners.add(new Owner(ownersCount++, "Zygmunt", "Waza", "male", 80));
-    }
-
-    private void test_insertAnimals() {
-        owners.get(0).setAnimals(new Cat("Kicia", "f", 12, 0, "dachowiec"));
-        owners.get(0).setAnimals(new Cat("Mruczek", "f", 32, 0, "pers"));
-        owners.get(0).setAnimals(new Cat("Pusia", "f", 15, 0, "dachowiec"));
-        owners.get(1).setAnimals(new Cat("Pusia", "f", 15, 1, "dachowiec"));
+    public boolean getPrintUpperCase(){
+        return printUpperCase;
     }
 
 }

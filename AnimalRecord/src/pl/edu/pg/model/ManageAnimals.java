@@ -1,15 +1,15 @@
 package pl.edu.pg.model;
 
-import pl.edu.pg.AnimalRecord;
-
+import java.util.List;
 import java.util.Scanner;
 
 /** Class ManageAnimals consists of functions that
  * create new animal,
- * add new animal to the list
+ * add new animal to the list,
+ * find animal
  */
-public class ManageAnimals extends AnimalRecord {
-    public void createAnimal() {
+public class ManageAnimals extends ManageOwners {
+    public void createAnimal(List<Owner> owners, boolean printUpperCase) {
         Scanner scanner = new Scanner(System.in);
         // w ramach tej operacji konieczne będzie wybranie właściciela, do którego należy dane zwierze
         for (Owner owner : owners) {
@@ -85,11 +85,11 @@ public class ManageAnimals extends AnimalRecord {
     }
 
     //możliwość wyświetlenia listy wszystkich zwierząt (wszystkie dane) wraz z informacją kto jest właścicielem (imię i nazwisko)
-    public void listAnimals() {
+    public void listAnimals(List<Owner> owners, boolean printUpperCase) {
         for (Owner owner : owners) {
             for (Animal animal : owner.getAnimals()) {
                 animal.info();
-                if(printUpperCase){
+                if(!printUpperCase){
                     System.out.println("Owner: " + owner.getFirstName() + " " + owner.getLastName());
                 }else{
                     System.out.print(owner.getFirstName().toUpperCase() + " " + owner.getLastName().toUpperCase());
@@ -99,7 +99,7 @@ public class ManageAnimals extends AnimalRecord {
         }
     }
 
-    public void findAnimalByName(){
+    public void findAnimalByName(List<Owner> owners){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Name: ");
         String name = scanner.next();
@@ -112,7 +112,7 @@ public class ManageAnimals extends AnimalRecord {
         }
     }
 
-    public void findAnimalByAge(){
+    public void findAnimalByAge(List<Owner> owners){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Age: ");
         int age = scanner.nextInt();
@@ -125,7 +125,7 @@ public class ManageAnimals extends AnimalRecord {
         }
     }
 
-    public void findAnimalByLastName(){
+    public void findAnimalByLastName(List<Owner> owners){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Last name: ");
         String name = scanner.next();
@@ -137,5 +137,11 @@ public class ManageAnimals extends AnimalRecord {
         }
     }
 
+    private void test_insertAnimals(List<Owner> owners) {
+        owners.get(0).setAnimals(new Cat("Kicia", "f", 12, 0, "dachowiec"));
+        owners.get(0).setAnimals(new Cat("Mruczek", "f", 32, 0, "pers"));
+        owners.get(0).setAnimals(new Cat("Pusia", "f", 15, 0, "dachowiec"));
+        owners.get(1).setAnimals(new Cat("Pusia", "f", 15, 1, "dachowiec"));
+    }
 
 }

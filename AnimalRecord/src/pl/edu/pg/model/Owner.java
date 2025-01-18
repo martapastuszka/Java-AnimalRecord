@@ -28,7 +28,7 @@ public class Owner {
     //Polimorfizm - implementacja info();
     public void info(boolean printUpperCase){
         System.out.print("ID: " + id);
-        if(printUpperCase){
+        if(printUpperCase == false){
             System.out.print(", " + firstName + " " + lastName);
         }else {
             System.out.print(", " + firstName.toUpperCase() + " " + lastName.toUpperCase());

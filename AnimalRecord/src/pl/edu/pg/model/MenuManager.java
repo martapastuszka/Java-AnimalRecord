@@ -1,6 +1,5 @@
 package pl.edu.pg.model;
 
-import pl.edu.pg.AnimalRecord;
 import java.util.*;
 
 /**
@@ -8,9 +7,8 @@ import java.util.*;
  * show menu
  * manipulate with menu options
  */
-public class MenuManager extends AnimalRecord {
-    protected static int ownersCount;
-    public int showMenu() {
+public class MenuManager {
+    public int showMenu(int ownersCount) {
         System.out.println("------------------- Menu --------------------------");
         System.out.println("What do you want to do? Pick a number:");
         System.out.println("1. Add animal owner");
